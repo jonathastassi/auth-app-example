@@ -56,6 +56,7 @@ namespace AuthApi.Controllers
 
         // POST api/auth/refresh
         [HttpPost("refresh")]
+        [Authorize]
         public IActionResult Refresh([FromBody] User user)
         {
             return Ok("Refresh " + user.Email);

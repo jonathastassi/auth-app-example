@@ -8,12 +8,15 @@ namespace AuthApi.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly ITokenService tokenService;
 
         public UserService(
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ITokenService tokenService
         )
         {
             this.userRepository = userRepository;
+            this.tokenService = tokenService;
         }
 
         public User Create(User user)
@@ -59,7 +62,7 @@ namespace AuthApi.Services
                 {
                     userAuth.Password = null;
                     
-                    string token = "123123";
+                    string token = this.tokenService.GenerateToken(userAuth);
 
                     return new AuthInfo(true, userAuth, token);                    
                 }
