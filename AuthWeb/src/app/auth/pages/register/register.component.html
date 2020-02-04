@@ -14,7 +14,9 @@
     <label for="inputPasswordConfirm" class="sr-only">Senha</label>
     <input type="password" id="inputPasswordConfirm" class="form-control mb-4" placeholder="Digite a senha novamente" formControlName="passwordConfirm">
 
+    <button class="btn btn-lg btn-outline-dark btn-block mb-2" type="submit" [disabled]="!formRegister.valid">Cadastrar</button>
 
-    <button class="btn btn-lg btn-outline-dark btn-block" type="submit" [disabled]="!formRegister.valid">Cadastrar</button>
+    <a routerLink="/auth/login" class="btn btn-link">Acessar</a>
+
     <p class="mt-5 mb-3 text-muted">© Jonathas Tassi e Silva</p>
 </form>

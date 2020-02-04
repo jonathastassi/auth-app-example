@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -17,16 +18,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.authService.register(this.formLogin.value)
+    this.authService.login(this.formLogin.value)
       .subscribe((data) => {
-        alert("Registro efetuado com sucesso!");
-        this.router.navigateByUrl('/auth/login');
+        alert("Login efetuado com sucesso!");
+        this.router.navigateByUrl('/');
       },
       err => {
         console.log(err);
