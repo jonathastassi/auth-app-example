@@ -1,5 +1,30 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light" *ngIf="(authenticated$ | async)">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">AuthApp</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed"
+      aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<h1>Menu</h1>
-
+    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/main/clients/" routerLinkActive="active">Clientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/main/products/" routerLinkActive="active">Produtos</a>
+          </li>
+        <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
+          <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown3" role="button">
+            Jonathas Tassi e Silva
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
+            <a ngbDropdownItem style="cursor: pointer" (click)="logout()">Sair</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>

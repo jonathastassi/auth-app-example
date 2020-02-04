@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../models/user';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -16,7 +17,8 @@ export class AuthService {
   private subjLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   register(user: User): Observable<User> {
@@ -28,7 +30,8 @@ export class AuthService {
       .pipe(
         tap((authInfo: AuthInfo) => {
           localStorage.setItem('token:authApp', authInfo.token);
-
+          this.subjLoggedIn$.next(true);
+          this.subjUser$.next(authInfo.user);
         })
       );
   }
@@ -39,5 +42,12 @@ export class AuthService {
 
   getUser(): Observable<User> {
     return this.subjUser$.asObservable();
+  }
+
+  logout(): void {
+    localStorage.removeItem('token:authApp');
+    this.subjLoggedIn$.next(false);
+    this.subjUser$.next(null);
+    this.router.navigateByUrl('/auth/login');
   }
 }
