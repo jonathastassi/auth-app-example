@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AuthApi.Interfaces;
 using AuthApi.Models;
@@ -60,7 +61,20 @@ namespace AuthApi.Controllers
         [Authorize]
         public IActionResult Refresh([FromBody] User user)
         {
-            return Ok("Refresh " + user.Email);
+            var teste = User;
+
+            var teste1 = HttpContext.User;
+            
+
+            var currentUser = HttpContext.User;
+
+            string emailUser = string.Empty;
+            if (currentUser.HasClaim(c => c.Type == ClaimTypes.Email))
+            {
+                emailUser = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            }
+
+            return Ok("Refresh " + emailUser);
         }
     }
 }
