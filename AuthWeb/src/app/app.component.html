@@ -16,7 +16,7 @@
           </li>
         <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
           <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown3" role="button">
-            Jonathas Tassi e Silva
+            {{ (user$ | async).name }}
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
             <a ngbDropdownItem style="cursor: pointer" (click)="logout()">Sair</a>
