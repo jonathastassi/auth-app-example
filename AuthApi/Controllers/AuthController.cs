@@ -56,6 +56,27 @@ namespace AuthApi.Controllers
             }
         }
 
+        // GET api/auth/me
+        [HttpGet("me")]
+        [Authorize]
+        public IActionResult Me()
+        {
+            var currentUser = HttpContext.User;
+
+            string idUser = string.Empty;
+            string nameUser = string.Empty;
+            string emailUser = string.Empty;
+            
+            if (currentUser.HasClaim(c => c.Type == ClaimTypes.Email))
+            {
+                idUser = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.PrimarySid).Value;
+                nameUser = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;                
+                emailUser = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            }
+
+            return Ok(new User { Id = idUser, Name = nameUser, Email = emailUser });
+        }
+
         // POST api/auth/refresh
         [HttpPost("refresh")]
         [Authorize]
