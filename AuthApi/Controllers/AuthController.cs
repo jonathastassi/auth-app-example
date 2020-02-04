@@ -6,6 +6,7 @@ using AuthApi.Interfaces;
 using AuthApi.Models;
 using AuthApi.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthApi.Controllers
@@ -31,9 +32,9 @@ namespace AuthApi.Controllers
             {
                 return Ok(this.userService.Login(user));            
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {                
-                throw;
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -48,9 +49,9 @@ namespace AuthApi.Controllers
 
                 return Ok(user);            
             }
-            catch (System.Exception)
-            {                
-                throw;
+            catch (System.Exception ex)
+            {        
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 

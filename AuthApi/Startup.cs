@@ -44,6 +44,7 @@ namespace AuthApi
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITokenService, TokenService>();
 
+            services.AddCors();
 
             services.AddControllers().AddJsonOptions(options =>
             {
@@ -84,14 +85,13 @@ namespace AuthApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseCors(x => x
                             .AllowAnyOrigin()
                             .AllowAnyMethod()
                             .AllowAnyHeader());
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

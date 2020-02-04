@@ -5,7 +5,7 @@ namespace AuthApi.Interfaces
 {
     public interface IUserService
     {
-        public AuthInfo Login(User user);
-        public User Create(User user);
+        AuthInfo Login(User user);
+        User Create(User user);
     }
 }
